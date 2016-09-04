@@ -1,0 +1,10 @@
+环境部署 
+
+
+使用quick-cocos2d-x3.3版本
+address:
+https://github.com/iTyran/Quick-Cocos2dx-Community
+
+
+
+
