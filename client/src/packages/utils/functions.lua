@@ -12,22 +12,6 @@ function cc.sizeSub2p(size, subSize)
     return { x = size.width - subSize.width, y = size.height - subSize.height}
 end
 
-function cc.tableCopy(tab, data)
-    for key, var in pairs(data) do
-        
-        if type(var) == "table" then
-            
-            if tab[key] == nil then
-                tab[key] = {}
-            end
-
-            cc.tableCopy(tab[key], var)
-        else
-            tab[key] = var
-        end
-    end
-end
-
 function cc.rgb2str(rgb)
     local r = rgb.r
     local g = rgb.g

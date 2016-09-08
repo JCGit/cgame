@@ -3,15 +3,16 @@ file: fs.lua [file system]
 desc: 文件系统相关api接口
 ]]
 
--- local lfs = require('lfs')
-lfs.searchPaths = {--[['/upd/', ]]'/src/'}
+local lfs = require('lfs')
 
-function lfs.dir_luafiles(relative)
+local _searchPaths = {--[['/upd/', ]]'/src/'}
+
+function lfs.dirfiles(relative)
 	local infolist = {}
 
 	local curdir = lfs.currentdir()
 
-	for k,v in pairs(lfs.searchPaths) do
+	for k,v in pairs(_searchPaths) do
 		local datadir = curdir .. v .. relative
 
 		local attr = lfs.attributes(datadir)

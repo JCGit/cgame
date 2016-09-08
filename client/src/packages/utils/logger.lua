@@ -1,35 +1,37 @@
---[[
-    File            :   looger.lua
-    Description     :   日志
-    Author          :   Edward Chan
-    Date            :   2016-03-23
+local print_log     = printLog
+local print_info    = printInfo
+local print_error   = printError
 
-    Copyright (C) 2016 - All Rights Reserved.
-]]
+local logger = class("logger")
 
-log = printLog      --自定义标签打印
-logi = printInfo    --info标签打印
-loge = printError   --error标签打印
+local _M = logger
 
---format打印
-function logf(fmt, ...)
+_M.n = print_log 
+_M.i = print_info
+_M.e = print_error
+
+_M.f = function(fmt, ...)
+
     if type(DEBUG) ~= "number" or DEBUG < 2 then return end
-    logi(string.format(tostring(fmt), ...))
+    print_info(string.format(tostring(fmt), ...))
 end
 
---warn标签打印
-function logw(fmt, ...)
+_M.w = function(fmt, ...)
+
     if type(DEBUG) ~= "number" or DEBUG < 2 then return end
-    log("WARN", fmt, ...)
+    print_log("WARN", fmt, ...)
 end
 
---debug标签定位打印
-function logd(fmt, ...)
+_M.d = function(fmt, ...)
+
     if type(DEBUG) ~= "number" or DEBUG < 2 then return end
+
     local info = debug.getinfo(2)
-    print("----------------" .. info.name .. "------------------")
-    print("FilePosition :" .. info.source)
-    print("LineNum :" .. info.currentline)
-    log("DEBUG", fmt, ...)
-    print("------------------------------------------------------")
+    print_info("----------------" .. info.name .. "------------------")
+    print_info("FilePosition :" .. info.source)
+    print_info("LineNum :" .. info.currentline)
+    print_log("DEBUG", fmt, ...)
+    print_info("------------------------------------------------------")
 end
+
+return logger

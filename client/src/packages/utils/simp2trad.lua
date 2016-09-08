@@ -7,15 +7,7 @@
     Copyright (C) 2016 - All Rights Reserved.
 ]]
 
---分割utf8字符串
-function string.splitUtf8(str)
-	if not str or str == "" then return nil end
-	local tab = {}
-	for uchar in string.gfind(str, "[%z\1-\127\194-\244][\128-\191]*") do
-		tab[#tab+1] = uchar
-	end
-	return tab, #tab
-end
+
 
 -----------------------------华丽的分割线-------------------------------------
 --Trie树节点
@@ -235,3 +227,16 @@ function Converter:convert(str)
 end
 
 return Converter
+
+
+
+
+
+--TODO:外部代码
+-- -- 简繁转换器
+-- local Converter = import(".simp2trad")
+-- local converter = Converter:create(CC_ENV_CONFIG == 2 or CC_ENV_CONFIG == 4)
+-- local function simp2trad(str)
+--    return converter:convert(str)
+-- end
+-- utils.simp2trad = simp2trad

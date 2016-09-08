@@ -1,35 +1,10 @@
---[[
-    File            :   timer.lua
-    Description     :   全局计时器
-    Author          :   Edward Chan
-    Date            :   2016-03-23
-
-    Copyright (C) 2016 - All Rights Reserved.
-]]
+local os_time   = os.time
+local os_clock  = os.clock
 
 local timer = {}
 
---[[
-    本地时间差计算（debug用）
-    eg: 
-    function text()
-        local t1 = timeStart()
-        ...
-        ...
-        ...
-        timeEnd(t1)
-    end
-]]
-function timeStart()
-    if type(DEBUG) ~= "number" or DEBUG < 2 then return end
-    return os.clock()
-end
-
-function timeStop(start)
-    if type(DEBUG) ~= "number" or DEBUG < 2 then return end
-    if type(start) ~= "number" then return end
-    logd(os.clock() - start)
-end
+local _timeStart
+local _timeStop
 
 timer.list = {}
 
@@ -185,6 +160,20 @@ function timer:getFormatTimeBySecond(time, bChinese)
     end
 
     return formatTime
+end
+
+
+--private
+
+_timeStart = function()
+    if type(DEBUG) ~= "number" or DEBUG < 2 then return end
+    return os.clock()
+end
+
+_timeStop = function(start)
+    if type(DEBUG) ~= "number" or DEBUG < 2 then return end
+    if type(start) ~= "number" then return end
+    logd(os.clock() - start)
 end
 
 return timer
