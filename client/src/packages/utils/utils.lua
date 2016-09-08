@@ -1,10 +1,9 @@
 local _M = {
    
-   Desc     = "utility",
-   Lfs      = import(".lfs"),
-   Logger   = import(".logger"),
-   Simp2Trad= import(".simp2trad"),
-   Time     = import(".timer"),
+   lfs   	    = import(".lfs"),
+   logger   	= import(".logger"),
+   simp2trad 	= import(".simp2trad"),
+   timer     	= import(".timer"),
 }
 
 return _M

@@ -1,0 +1,35 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1、底层库采用全小写形式定义，包括package文件名，类名。
+
+如：
+packages.utils，及其子集lfs, logger等。
+packages.mvc, 及其子集uibox, layoutbase等。
+
+
+2、引用外部库函数，采用"库名_函数名"形式。
+
+如：
+引用 cc.Layer -> local cc_layer = cc.Layer
+
+3、成员变量，采用"_驼峰"形式，
+   局部变量，采用驼峰形式。
+如：
+定义成员变量，self._privateMember = nil
+定义局部变量，local privateMember = nil
+
+
+4、

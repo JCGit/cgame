@@ -13,8 +13,8 @@
 --3、core
 local _M = {}
 
-_M.EventCenter 		= cc.load("eventcenter")
-_M.Utils 			= cc.load("utils")
+_M.eventcenter 		= cc.load("eventcenter")
+_M.utils 			= cc.load("utils")
 _M.mvc 				= cc.load("mvc")
 
 
