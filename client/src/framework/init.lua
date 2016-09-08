@@ -115,6 +115,7 @@ end
 require(cc.PACKAGE_NAME .. ".debug")
 require(cc.PACKAGE_NAME .. ".functions")
 require(cc.PACKAGE_NAME .. ".cocos2dx")
+require(cc.PACKAGE_NAME .. ".package_support")
 
 printInfo("")
 printInfo("# DEBUG                        = "..DEBUG)
