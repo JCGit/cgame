@@ -4,17 +4,17 @@ local uibox = class("uibox", cc_layer)
 
 function uibox:ctor()
     
-    local _director = cc.Director:getInstance()
-    local _origin = _director:getVisibleOrigin()
-    local _size = _director:getVisibleSize()
+    local director = cc.Director:getInstance()
+    local origin = director:getVisibleOrigin()
+    local size = director:getVisibleSize()
 
-    local _container = ccui.Layout:create()
-    _container:setContentSize(_size)
-    _container:setPosition(_origin)
-    _container:setLocalZOrder(-1)
-    self:addChild(_container)
+    local container = ccui.Layout:create()
+    container:setContentSize(size)
+    container:setPosition(origin)
+    container:setLocalZOrder(-1)
+    self:addChild(container)
 
-    self._container = _container
+    self._container = container
     self._box = {}
 end
 
@@ -42,7 +42,7 @@ function uibox:remove(layer)
         return
     end
     local box      = self._box
-    local last      = #box        
+    local last     = #box        
     for i,v in ipairs(box) do
         if v == layer then
             if i == last then

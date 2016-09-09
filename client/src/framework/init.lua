@@ -180,3 +180,30 @@ if DEBUG_MEM then
     end
     sharedDirector:getScheduler():scheduleScriptFunc(showMemoryUsage, DEBUG_MEM_INTERVAL or 10.0, false)
 end
+
+
+-- export global variable
+local __g = _G
+cc.exports = {}
+setmetatable(cc.exports, {
+    __newindex = function(_, name, value)
+        rawset(__g, name, value)
+    end,
+
+    __index = function(_, name)
+        return rawget(__g, name)
+    end
+})
+
+-- disable create unexpected global variable
+function cc.disable_global()
+    setmetatable(__g, {
+        __newindex = function(_, name, value)
+            error(string.format("USE \" cc.exports.%s = value \" INSTEAD OF SET GLOBAL VARIABLE", name), 0)
+        end
+    })
+end
+
+if CC_DISABLE_GLOBAL then
+    cc.disable_global()
+end

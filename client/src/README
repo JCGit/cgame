@@ -11,7 +11,7 @@
 
 
 
-
+【编码规范】
 
 1、底层库采用全小写形式定义，包括package文件名，类名。
 
@@ -33,3 +33,71 @@ packages.mvc, 及其子集uibox, layoutbase等。
 
 
 4、
+
+
+【目录结构说明】
+
+src --------------------
+						|
+						|
+					   app
+						|
+						|
+					  cocos
+					  	|
+					  	|
+					framework
+					    |
+					    |
+					packages ---------------
+											|
+											|
+											|
+										 global.lua -> 		export table g.
+										 	|
+										 	|
+										  utils 	-> 		utils.lua == (logger, lfs, simp2trad, timer, utils ... )
+										    |
+										    |
+										   mvc 		-> 		mvc.lua   == (layout, panel, scene, proxy, control)
+										    |
+										    |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
