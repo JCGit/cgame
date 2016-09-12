@@ -24,19 +24,19 @@ function UpdView:onCreate()
 	self.downingText = self:seekWidgetByName('Text_2')
 	self.progress = self:seekWidgetByName('LoadingBar_1')
 
-	g.eventcore:addEventListener("ME_CHECK_VERLIST", 	handler(self, self.checkVerlist))
-	g.eventcore:addEventListener("ME_DOWNLOAD_ZIPS", 	handler(self, self.downloadZips))
-	g.eventcore:addEventListener("ME_DOWNLOAD_OVER", 	handler(self, self.downloadOver))
-	g.eventcore:addEventListener("ME_DOWNLOAD_SO_OVER", handler(self, self.downloadSoOver))
-	g.eventcore:addEventListener("ME_DOWNLOAD_APK", 	handler(self, self.downloadApkTip))
+	g.eventcenter:addEventListener("ME_CHECK_VERLIST", 	handler(self, self.checkVerlist))
+	g.eventcenter:addEventListener("ME_DOWNLOAD_ZIPS", 	handler(self, self.downloadZips))
+	g.eventcenter:addEventListener("ME_DOWNLOAD_OVER", 	handler(self, self.downloadOver))
+	g.eventcenter:addEventListener("ME_DOWNLOAD_SO_OVER", handler(self, self.downloadSoOver))
+	g.eventcenter:addEventListener("ME_DOWNLOAD_APK", 	handler(self, self.downloadApkTip))
 end
 
 function UpdView:clear()
-	g.eventcore:removeEventListenersByEvent("ME_CHECK_VERLIST")
-	g.eventcore:removeEventListenersByEvent("ME_DOWNLOAD_ZIPS")
-	g.eventcore:removeEventListenersByEvent("ME_DOWNLOAD_OVER")
-	g.eventcore:removeEventListenersByEvent("ME_DOWNLOAD_SO_OVER")
-	g.eventcore:removeEventListenersByEvent("ME_DOWNLOAD_APK")
+	g.eventcenter:removeEventListenersByEvent("ME_CHECK_VERLIST")
+	g.eventcenter:removeEventListenersByEvent("ME_DOWNLOAD_ZIPS")
+	g.eventcenter:removeEventListenersByEvent("ME_DOWNLOAD_OVER")
+	g.eventcenter:removeEventListenersByEvent("ME_DOWNLOAD_SO_OVER")
+	g.eventcenter:removeEventListenersByEvent("ME_DOWNLOAD_APK")
 end
 
 function UpdView:checkVerlist(event)
@@ -179,7 +179,7 @@ function UpdView:showCheckUpd(fileSize)
 		self.checkBox:setVisible(false)
 		self.downInfo:setVisible(true)
 
-		g.eventcore:dispatchEvent({name="ME_CONTINUE_UPDATE"})
+		g.eventcenter:dispatchEvent({name="ME_CONTINUE_UPDATE"})
 	end
 end
 

@@ -18,7 +18,7 @@ local upder = class("upder")
 
 function upder:startUpdate()
 
-	g.eventcore:addEventListener("ME_CONTINUE_UPDATE", handler(self, self.doContinueUpdate))
+	g.eventcenter:addEventListener("ME_CONTINUE_UPDATE", handler(self, self.doContinueUpdate))
 
 	self.view_ = UpdView:create()
 	self.view_:retain()
@@ -93,10 +93,10 @@ function upder:clear()
 		self.view_:removeFromParent()
 	end
 	self.view_:release()
-	g.eventcore:removeEventListenersByEvent("ME_CONTINUE_UPDATE")
+	g.eventcenter:removeEventListenersByEvent("ME_CONTINUE_UPDATE")
 
 	local LoginEvent = require("app.login.event.LoginEvent")
-	g.eventcore:dispatchEvent({name=LoginEvent.updateDone})
+	g.eventcenter:dispatchEvent({name=LoginEvent.updateDone})
 end
 
 function upder:checkVersion()
@@ -186,11 +186,11 @@ function upder:checkVersion()
 			end
 		end
 
-		g.eventcore:dispatchEvent({name="ME_CHECK_VERLIST", info=stateinfo})
+		g.eventcenter:dispatchEvent({name="ME_CHECK_VERLIST", info=stateinfo})
 		self.resumeUpdate()
 	end
 
-	g.eventcore:dispatchEvent({name="ME_CHECK_VERLIST", info=stateinfo})
+	g.eventcenter:dispatchEvent({name="ME_CHECK_VERLIST", info=stateinfo})
 	self.dlder.downloadFile(_option.URL_VER, _writePath, verlistCB)
 	self.suspendUpdate()
 	return ret
@@ -213,7 +213,7 @@ function upder:downloadZip()
 				received=params[2],
 				expected=params[3]
 			}
-			g.eventcore:dispatchEvent({name="ME_DOWNLOAD_ZIPS", info=stateinfo})
+			g.eventcenter:dispatchEvent({name="ME_DOWNLOAD_ZIPS", info=stateinfo})
 			return
 		elseif tag == 'fileError' then
 			ret = false
@@ -229,7 +229,7 @@ function upder:downloadZip()
 			self:writeLocalVersion(ver, curTag)
 		end
 
-		g.eventcore:dispatchEvent({name="ME_DOWNLOAD_ZIPS", info=stateinfo})
+		g.eventcenter:dispatchEvent({name="ME_DOWNLOAD_ZIPS", info=stateinfo})
 
 		stateinfo.errcode = nil
 		stateinfo.errstr  = nil
@@ -237,7 +237,7 @@ function upder:downloadZip()
 
 		-- 更新完so后，用户自行重启游戏
 		if updType == "so" then
-			g.eventcore:dispatchEvent({name="ME_DOWNLOAD_SO_OVER"})
+			g.eventcenter:dispatchEvent({name="ME_DOWNLOAD_SO_OVER"})
 			return
 		end
 		self.resumeUpdate()
@@ -253,7 +253,7 @@ function upder:downloadZip()
 	for k,v in pairs(ziplist) do
 		if v.updType == "apk"
 			or (v.updType == "so" and (CC_ENV_CONFIG == 1 or CC_ENV_CONFIG == 2)) then
-			g.eventcore:dispatchEvent({name="ME_DOWNLOAD_APK"})
+			g.eventcenter:dispatchEvent({name="ME_DOWNLOAD_APK"})
 			self.suspendUpdate()
 			break
 		end
@@ -281,7 +281,7 @@ function upder:downloadZip()
 	end)()
 
 	self.view_:open()
-	g.eventcore:dispatchEvent({name="ME_DOWNLOAD_ZIPS", info=stateinfo})
+	g.eventcenter:dispatchEvent({name="ME_DOWNLOAD_ZIPS", info=stateinfo})
 	self.suspendUpdate()
 
 	--小版本更新
@@ -298,7 +298,7 @@ function upder:downloadZip()
 		end
 	end
 
-	g.eventcore:dispatchEvent({name="ME_DOWNLOAD_OVER", info=stateinfo})
+	g.eventcenter:dispatchEvent({name="ME_DOWNLOAD_OVER", info=stateinfo})
 	self.view_:close()
 	return true
 end

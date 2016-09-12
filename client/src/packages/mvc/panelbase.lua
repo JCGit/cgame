@@ -15,12 +15,12 @@ end
 
 function panelbase:onEnterFinishUnifiedCallBack()
     --print("onEnterFinishUnifiedCallBack",self.__cname)
-    g.eventcore:dispatch(g.mainEvent.onShowView , self.__cname)
+    g.eventcenter:dispatch(g.mainEvent.onShowView , self.__cname)
 end
 
 function panelbase:onEnxitUnifiedCallBack()
     --print("onEnxitUnifiedCallBack",self.__cname)
-    g.eventcore:dispatch(g.mainEvent.onExitView , self.__cname)
+    g.eventcenter:dispatch(g.mainEvent.onExitView , self.__cname)
 end
 
 

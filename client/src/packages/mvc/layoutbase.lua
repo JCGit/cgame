@@ -131,15 +131,15 @@ function layoutbase:registerLayoutHandlers()
     end
 
     local handlers = self.option.handlerMap
-    self.onDispatch = function(_func, _sender)
+    self.onDispatch = function(cb, _sender)
 
-        local callback = handlers[_func]
+        local callback = handlers[cb]
         if not callback then
             logf("layoutbase registerLayout find no handler,evtName:%s!", evtName)
         else
             local f =function()
                 if self[callback] then
-                    self[callback](self, _sender, _func)
+                    self[callback](self, _sender, cb)
                 else
                     logf("layoutbase registerLayout find no handler,callback:%s!", callback)
                 end
@@ -158,20 +158,20 @@ function layoutbase:registerLayoutHandlers()
             if v.getCallbackName then
                 tolua.cast(v, "ccui.Widget")
 
-                local _func = v:getCallbackName()
-                if _func and _func ~= "" then
-                    handlers[_func] = _func
+                local cb = v:getCallbackName()
+                if cb and cb ~= "" then
+                    handlers[cb] = cb
 
                     v:addClickEventListener(function (_sender)
                         -- 分发触摸事件
 
-                        --[[ if _func == "onBack" then
+                        --[[ if cb == "onBack" then
                             g.mgr.soundMgr:playEffectSound("commonBack")
                         else
                             g.mgr.soundMgr:playEffectSound("commonClick")
                         end
                         ]] --
-                        self.onDispatch(_func, _sender)
+                        self.onDispatch(cb, _sender)
                     end)
                 end
             end
