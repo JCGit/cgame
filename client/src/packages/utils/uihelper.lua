@@ -1,17 +1,16 @@
 local string_format = string.format
 
-
 local uihelper = {}
 
 function uihelper.seekWidgetByName(root, name)
 	
 	local recurse 
-    recurse = function (root_, name)
-        local nodename = root_:getName()
-        if nodename == name then return root_ end
+    recurse = function (_root, name)
+        local nodeName = _root:getName()
+        if nodeName == name then return _root end
         
-        local children = root_:getChildren()
-        -- print(nodename, #children, name)
+        local children = _root:getChildren()
+        -- print(nodeName, #children, name)
         for k,v in pairs(children) do
             local res = recurse(v, name)
             if res then
@@ -45,8 +44,8 @@ function uihelper.loadTexture(target, uitype, icon, packtype)
 
     local ok, r = xpcall(f, __G__TRACKBACK__)
     if not ok then
-        logw(string.format('texture icon:%s.', icon))
-        print(r)
+        g.logger.i(string.format('texture icon:%s.', icon))
+        g.logger.i(r)
     end
 end
 

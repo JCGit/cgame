@@ -13,6 +13,23 @@ end
 function MyApp:run()
     cc.FileUtils:getInstance():addSearchPath("res/")
     self:enterScene("MainScene")
+
+   --[[
+    -- local scene = display.newScene("jc")
+    local SceneBase = g.mvc.scenebase
+    g.logger.d(SceneBase)
+    local scene = SceneBase:create()
+
+    g.logger.i(scene)
+    
+    local PanelBase = g.mvc.panelbase
+
+    local panel = PanelBase:create()
+    g.logger.i(panel)
+
+    panel:open(scene)
+
+    -- ]] --
 end
 
 return MyApp

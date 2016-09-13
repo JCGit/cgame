@@ -39,6 +39,7 @@ function AppBase:enterScene(sceneName, args, transitionType, time, more)
     local sceneClass = require(scenePackageName)
     local scene = sceneClass.new(unpack(checktable(args)))
     display.replaceScene(scene, transitionType, time, more)
+    return scene
 end
 
 function AppBase:createView(viewName, ...)

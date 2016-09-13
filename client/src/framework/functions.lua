@@ -336,6 +336,10 @@ function class(classname, super)
             instance:ctor(...)
             return instance
         end
+
+        function cls.create(...)
+            return cls.new(...)
+        end
     end
 
     return cls

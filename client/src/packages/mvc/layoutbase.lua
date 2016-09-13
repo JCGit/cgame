@@ -6,6 +6,7 @@
 
 ]]
 local ccui_layout = ccui.layout
+local uihelper  = g.uihelper
 local lang_text = nil--g.mgr.tablemgr.getTextByKey
 local layoutbase = class("layoutbase", ccui.Layout)
 
@@ -135,13 +136,13 @@ function layoutbase:registerLayoutHandlers()
 
         local callback = handlers[cb]
         if not callback then
-            logf("layoutbase registerLayout find no handler,evtName:%s!", evtName)
+            g.logger.f("layoutbase registerLayout find no handler,evtName:%s!", evtName)
         else
             local f =function()
                 if self[callback] then
                     self[callback](self, _sender, cb)
                 else
-                    logf("layoutbase registerLayout find no handler,callback:%s!", callback)
+                    g.logger.f("layoutbase registerLayout find no handler,callback:%s!", callback)
                 end
             end
             
@@ -164,13 +165,6 @@ function layoutbase:registerLayoutHandlers()
 
                     v:addClickEventListener(function (_sender)
                         -- 分发触摸事件
-
-                        --[[ if cb == "onBack" then
-                            g.mgr.soundMgr:playEffectSound("commonBack")
-                        else
-                            g.mgr.soundMgr:playEffectSound("commonClick")
-                        end
-                        ]] --
                         self.onDispatch(cb, _sender)
                     end)
                 end

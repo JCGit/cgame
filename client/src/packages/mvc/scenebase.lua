@@ -14,15 +14,6 @@ scenebase.eLayerID ={
 function scenebase:ctor(...)
     self:enableNodeEvents()
 
-    self._viewSet            = {}
-
-    self._clickEventMap      = {}
-    setmetatable(self._clickEventMap, {__mode = "k"})
-    self._touchEventMap      = {}
-    setmetatable(self._touchEventMap, {__mode = "k"})
-
-    self._listenerCount      = 0
-
     if self.onCreate then self:onCreate(...) end
 end
 
@@ -31,7 +22,7 @@ function scenebase:enableNodeEvents()
         return self
     end
 
-    self:registerScriptHandler( function(state)
+    --[[self:registerScriptHandler( function(state)
         if state == "enter" and self.onEnter then
             self:onEnter()
         elseif state == "exit" and self.onExit then
@@ -44,13 +35,15 @@ function scenebase:enableNodeEvents()
             self:onCleanup()
         end
     end )
+    ]]--
     self._enableNodeEvent = true
 
     return self
 end
 
 function scenebase:createLayer(layerid)
-    local layer  = nil
+    local layer
+
     if layerid == self.eLayerID.ELAYER_BOX then
         layer = uibox:create()
     elseif layerid == self.eLayerID.ELAYER_TIPS then
@@ -59,6 +52,7 @@ function scenebase:createLayer(layerid)
     else
         layer = cc.Layer:create()
     end
+    
     return layer
 end
 
@@ -74,6 +68,10 @@ function scenebase:getLayer(layerid)
     return self:getChildByTag(layerid)
 end
 
+function scenebase:getUiBox()
+    return self:getLayer(self.eLayerID.ELAYER_BOX)
+end
+
 function scenebase:addLayer(layerid)
 
     local child = self:getLayer(layerid)
@@ -83,44 +81,14 @@ function scenebase:addLayer(layerid)
         assert(layer, string.format("scenebase createLayer layer:%d error.", layerid))
 
         local zorder = self:getLayerZOrder(layerid)
-        if self.eLayerID.ELAYER_TIPS == layerid then
-            layer:removeFromParent()
-        end
         self:addChild(layer, zorder, layerid)
+
+        -- if self.eLayerID.ELAYER_TIPS == layerid then
+        --     layer:removeFromParent()
+        -- end
         return layer
     end
     return child
-end
-
-
-function scenebase:setView(view , isStore)
-    self._viewSet[view.__cname]      = isStore and view or nil
-end
-
-function scenebase:getViewByViewName(viewName)
-    assert(type(viewName) == "string" , " viewName type is wrong")
-    return self._viewSet[viewName]
-end
-
-function scenebase:setStoreClickEvent(widget , event)
-    self._listenerCount      = self._listenerCount + 1
-    --print("setStoreClickEvent" , self._listenerCount , self.__cname)
-    self._clickEventMap[widget]      = event
-end
-
-function scenebase:getClickEvent(widget )
-    return self._clickEventMap[widget]
-end
-
-function scenebase:setStoreTouchEvent(widget ,event)
-    self._listenerCount      = self._listenerCount + 1
-    --print("setStoreTouchEvent" , self._listenerCount , self.__cname)
-    self._touchEventMap[widget]      = event
-
-end
-
-function scenebase:getTouchEvent(widget)
-    return self._touchEventMap[widget]
 end
 
 function scenebase:getSceneID()

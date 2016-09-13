@@ -24,38 +24,31 @@ function panelbase:onEnxitUnifiedCallBack()
 end
 
 
-function panelbase:open()
+function panelbase:open(...)
+
     if self._curOpened then return end
-    local sceneManager      = g.mgr.scenemgr
-    local scene         = sceneManager:getCurScene()
 
-    if scene:getViewByViewName(self.__cname) then
-        return
+    local params = {...}
+    local scene = params[1]
+    if scene then
+        local box = scene:getUiBox()
+        assert(box, "panelbase:open ui, no box-layer.")
+
+        self:setTouchEnabled(true)
+
+        box:add(self)
+        self._scene = scene
+    else
+        g.logger.w("panelbase.open no target scene.")
     end
-
-    local box = scene:getChildByTag(scenebase.eLayerID.ELAYER_BOX)
-    assert(box, "panelbase:open ui, no box-layer.")
-
-    self:setTouchEnabled(true)
-
-    scene:setView(self , true)
-
-    box:add(self)
 end
 
 function panelbase:close()
 
     if not self._curOpened then return end
-    local sceneManager      = g.mgr.scenemgr
-    local scene         = sceneManager:getCurScene()
+    local scene = self._scene
 
-    if not scene:getViewByViewName(self.__cname) then
-        --print("\n")
-        --logw(string.format("\n---------------------------------------------------------\nthe view is not  exist %s\n---------------------------------------------------------\n",self.__cname ))
-        return
-    end
-
-    local box = scene:getChildByTag(scenebase.eLayerID.ELAYER_BOX)
+    local box = scene:getUiBox()
     assert(box, "panelbase:close ui, no box-layer.")
 
     if self.clear then
