@@ -112,7 +112,7 @@ function Session:close(noMsg)
 	end
 	if self.tickScheduler then scheduler:unscheduleScriptEntry(self.tickScheduler) end
 	if not noMsg then
-		g.eventcore:dispatchEvent({name=netevent.EVT_CLOSE})
+		g.eventcenter:dispatchEvent({name=netevent.EVT_CLOSE})
 	end
 end
 
@@ -139,13 +139,13 @@ end
 function Session:_disconnect()
 	self.isConnected = false
 	self.tcp:shutdown()
-	g.eventcore:dispatchEvent({name=netevent.EVT_CLOSE})
+	g.eventcenter:dispatchEvent({name=netevent.EVT_CLOSE})
 end
 
 function Session:_onDisconnect()
 	--printInfo("%s._onDisConnect", self.name);
 	self.isConnected = false
-	g.eventcore:dispatchEvent({name=netevent.EVT_CLOSED})
+	g.eventcenter:dispatchEvent({name=netevent.EVT_CLOSED})
 	-- self:_reconnect()
 end
 
@@ -153,7 +153,7 @@ end
 function Session:_onConnected()
 	--printInfo("%s._onConnectd", self.name)
 	self.isConnected = true
-	g.eventcore:dispatchEvent({name=netevent.EVT_CONNECTED})
+	g.eventcenter:dispatchEvent({name=netevent.EVT_CONNECTED})
 
 	if self.connectTimeTickScheduler then
 		scheduler:unscheduleScriptEntry(self.connectTimeTickScheduler)
@@ -173,7 +173,7 @@ function Session:_onConnected()
 end
 
 function Session:_connectFailure(status)
-	g.eventcore:dispatchEvent({name=netevent.EVT_CONNECT_FAIL})
+	g.eventcenter:dispatchEvent({name=netevent.EVT_CONNECT_FAIL})
 	-- self:_reconnect()
 end
 
@@ -249,7 +249,7 @@ function Session:recvMsg()
 		--logi(string.format("now received:%d.", recved))
 	end
 
-	g.eventcore:dispatchEvent({name=netevent.EVT_MESSAGE, data=self.msg})
+	g.eventcenter:dispatchEvent({name=netevent.EVT_MESSAGE, data=self.msg})
 	self.msg = ""
 end
 
@@ -262,7 +262,7 @@ function Session:recvLine()
     local msg = self:validMsg(body, partial)
     if not msg then return end
 
-    g.eventcore:dispatchEvent({name=netevent.EVT_DATA, data=msg})
+    g.eventcenter:dispatchEvent({name=netevent.EVT_DATA, data=msg})
 end
 
 return Session

@@ -1,12 +1,32 @@
+local mvc = cc.mvc
 
-local _M = {}
+--TODO: 扩展viewBase
+-- local ViewBase = import("")
 
-_M.layoutbase	= import(".layoutbase")
-_M.panelbase	= import(".panelbase")
-_M.scenebase 	= import(".scenebase")
-_M.proxybase 	= import(".proxybase")
-_M.controlbase 	= import(".controlbase")
--- _M.BaseTips 	= import(".BaseTips")
--- _M.BaseCache 	= import(".BaseCache")
+--TODO: 扩展ViewMgr
+-- local ViewMgr = import("")
 
-return _M
+--TODO: 扩展SceneBase
+local SceneBase = import(".scenebase")
+
+--TODO: 扩展SceneMgr
+-- local SceneMgr = import("")
+
+mvc.ViewBase 	= ViewBase
+mvc.SceneBase 	= SceneBase
+
+return mvc, SceneMgr
+--[[
+	scenemgr 
+		|   \
+		|    \
+		|     \
+     scene1 scene2
+	 	|
+	 	|
+	 	|
+	 viewmgr
+	    |	 \
+	    |	  \
+	  view1	  view2
+]]

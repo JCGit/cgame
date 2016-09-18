@@ -282,9 +282,10 @@ end
 
 ]]
 function class(classname, super)
+
     local superType = type(super)
     local cls
-
+    -- print(superType)
     if superType ~= "function" and superType ~= "table" then
         superType = nil
         super = nil
@@ -335,6 +336,10 @@ function class(classname, super)
             instance.class = cls
             instance:ctor(...)
             return instance
+        end
+
+        function cls.create(...)
+            return cls.new(...)
         end
     end
 

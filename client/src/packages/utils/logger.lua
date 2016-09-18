@@ -22,20 +22,6 @@ _M.w = function(fmt, ...)
     print_log("WARN", fmt, ...)
 end
 
---[[ 
-_M.d = function(fmt, ...)
-
-    if type(DEBUG) ~= "number" or DEBUG < 2 then return end
-
-    local info = debug.getinfo(2)
-    print_info("----------------" .. info.name .. "------------------")
-    print_info("FilePosition :" .. info.source)
-    print_info("LineNum :" .. info.currentline)
-    print_log("DEBUG", fmt, ...)
-    print_info("------------------------------------------------------")
-end
-]] --
-
 _M.d = function(value, desciption, nesting)
     if type(nesting) ~= "number" then nesting = 4 end
 

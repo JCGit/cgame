@@ -1,11 +1,9 @@
 local controlbase = class("controlbase")
 
 function controlbase:ctor( )
-	
-	if self.onCreate then 
-		self:onCreate() 
-		self:load()
-	end
+
+	if self.onCreate then self:onCreate() end
+
 end
 
 function controlbase:load()

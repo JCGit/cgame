@@ -20,10 +20,12 @@ packages.utils，及其子集lfs, logger等。
 packages.mvc, 及其子集uibox, layoutbase等。
 
 
-2、引用外部库函数，采用"库名_函数名"形式。
+2、引用外部库函数，采用"库名_函数名"形式,
+对packages的引用，采用"库名"形式
 
 如：
-引用 cc.Layer -> local cc_layer = cc.Layer
+引用 cc.Layer 		-> local cc_layer = cc.Layer
+引用 utils.logger 	-> local logger = g.logger
 
 3、成员变量，采用"_驼峰"形式，
    局部变量，采用驼峰形式。

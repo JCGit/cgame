@@ -12,7 +12,19 @@ end
 
 function MyApp:run()
     cc.FileUtils:getInstance():addSearchPath("res/")
-    self:enterScene("MainScene")
+
+    -- self:enterScene("LoginScene")
+
+    local loginScene = require("app.Login.LoginScene")
+    -- local loginScene = g.mvc.SceneBase
+    local scene = loginScene.new()
+    display.replaceScene(scene)
+
+    -- local scenebase  = g.mvc.SceneBase
+
+    -- local scene = scenebase.new()
+
+
 end
 
 return MyApp
